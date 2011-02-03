@@ -10,7 +10,7 @@
 # Required files/Application/services:
 #     * hipchat_room_message:  https://github.com/hipchat/hipchat-cli
 #     * Subversion: http://subversion.tigris.org/
-#     * Wroking repository
+#     * Working repository
 #     * HipChat account and room setup: https://www.hipchat.com/
 #     * HipChat token created: https://www.hipchat.com/groups/api
 #
@@ -59,9 +59,9 @@ fi
 post(){
   rm -f ${HCCTL}
   echo "`${WHO}` updated ${REPO} to Rev: ${REV}" > ${HCTMP}
-  echo "`${CMT}`" > ${HCTMP}
-  echo "The following list of files were changed:" > ${HCTMP}
-  echo "`${FILES}`" > ${HCTMP}
+  echo "`${CMT}`" >> ${HCTMP}
+  echo "The following list of files were changed:" >> ${HCTMP}
+  echo "`${FILES}`" >> ${HCTMP}
   cat ${HCTMP} | ${HCCTL}
 }
 
