@@ -1,0 +1,82 @@
+#!/bin/bash 
+
+# post-commit: Hook used for SVN post commits
+#
+# Hank Wethington 
+
+# This script is set to publish information after SVN commits to HipChat. 
+#
+# Place this file in your SVN repository hooks directory.
+# Required files/Application/services:
+#     * hipchat_room_message:  https://github.com/hipchat/hipchat-cli
+#     * Subversion: http://subversion.tigris.org/
+#     * Wroking repository
+#     * HipChat account and room setup: https://www.hipchat.com/
+#     * HipChat token created: https://www.hipchat.com/groups/api
+#
+
+# Set hipchat_cli info
+#
+# Replace <TEXT> with the requested information. 
+# <ROOM> is available from URL when using the web based hipcaht client
+# <USER> is the user you want to "post" the info. Does not have to be a
+# a real user. I use "SVN"
+HCCLI="<LOCATION OF hipchat-cli>"
+TOKEN="<TOKEN>"
+ROOM="<ROOM>"
+USER="<USER>"
+
+# svnlook location. Part of subversion install
+LOOK="<svnlook LOCATION>"
+
+# Temp file location and name
+# Any file any location. I use /tmp/ to write the file to.
+HCTMP="<TMP FILE>"
+
+##############################################################
+##############################################################
+############ Edit below at your own risk #####################
+##############################################################
+##############################################################
+
+# Check that we are using the scipt correctly
+# Shouldn't be an issue unless you're running this by hand
+usage(){
+  echo ""
+  echo "Usage: $0 REPO REVISION"
+  echo ""
+}
+
+# Check the command line args
+# Shouldn't be an issue unless you're running this by hand
+if [ $# -ne 2 ] 
+then
+  usage
+  exit 1
+fi
+
+# Setup the actual post-commit process
+post(){
+  rm -f ${HCCTL}
+  echo "Repository Agora was updated to Revision: ${REV}" > ${HCTMP}
+  echo "By user: `${WHO}`" >> ${HCTMP}
+  echo "The following file(s) were changed" >> ${HCTMP}
+  echo "`${FILES}`" >> ${HCTMP}
+  echo "With the following comment(s)" >> ${HCTMP}
+  echo "`${CMT}`" >> ${HCTMP}
+  cat ${HCTMP} | ${HCCTL}
+}
+
+# Make things tight
+# $1 and $2 are passed by the "svn commit" process
+# CMT, WHO and FILES are set to keep the "post" process tight and easy
+# HCCTL is the call to the hipchat_cli
+REPO="$1"
+REV="$2"
+CMT="${LOOK} log ${REPO}"
+WHO="${LOOK} author ${REPO}"
+FILES="${LOOK} changed ${REPO}"
+HCCTL="${HCCLI} -t ${TOKEN} -r ${ROOM} -f ${USER}"
+
+# Finally, let's do what needs to be done.
+post

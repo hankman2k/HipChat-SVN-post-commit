@@ -1,0 +1,42 @@
+post-commit: Hook used for SVN post commits
+
+This script is set to publish information after SVN commits to HipChat. 
+
+The script uses the hipchat-cli to do all the heavy lifting. This is required, 
+unless you want to create/use a different hipchat-cli.
+
+Required files/Application/services:
+    * hipchat_room_message:  https://github.com/hipchat/hipchat-cli
+    * Subversion: http://subversion.tigris.org/
+    * Wroking repository (you're on your own here)
+    * HipChat account and room setup: https://www.hipchat.com/
+    * HipChat token created: https://www.hipchat.com/groups/api
+
+The use of "post-commit" as the name of the file is required and must be placed in the "/hooks" directory 
+of your repository. Each repository will need it's own "post-commit" hook. For windows based SVN systems, 
+add ".bat" to the file name.
+
+The hipchat-cli can be placed anywhere on the filesystem. The location can be set in the script file.
+
+The user MUST edit the script file to add in
+    * hipchat token
+    * hipcaht room number
+    * location of hipchat-cli
+    * a user name for display in hipchat
+    * location of svnlook command. In RedHat/CentOS /usr/bin/svnlook
+    * location of temp file. 
+
+To test:
+    1) Edit script file
+    2) chmod 755 script file
+    3) # ./post-commit <svn repo> <rev #>
+    where <svn repo> is your full path to the repository and <rev #> is any number. 
+    The REV number does not have to be accurate.
+    4) Look at your log in HipChat and verify that information was posted.
+    5) Finally, add/update a file in your checked out repository and commit. 
+    6) Look at your log in HipChat and verify that information was poster.
+
+Note from author:
+
+If you like this script and get use out of it, give back! Yep. You too can give something back to the open source communities.
+If you can give code, give money to your favorite open source program. Keep open source alive.
