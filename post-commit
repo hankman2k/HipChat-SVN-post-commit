@@ -57,12 +57,12 @@ fi
 
 # Setup the actual post-commit process
 post(){
-  rm -f ${HCTMP}
   echo "`${WHO}` updated ${REPO} to Rev: ${REV}" > ${HCTMP}
   echo "`${CMT}`" >> ${HCTMP}
   echo "The following list of files were changed:" >> ${HCTMP}
   echo "`${FILES}`" >> ${HCTMP}
   cat ${HCTMP} | ${HCCTL}
+  rm -f ${HCTMP}
 }
 
 # Make things tight
