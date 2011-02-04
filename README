@@ -8,7 +8,7 @@ unless you want to create/use a different hipchat-cli.
 Required files/Application/services:
     * hipchat_room_message:  https://github.com/hipchat/hipchat-cli
     * Subversion: http://subversion.tigris.org/
-    * Wroking repository (you're on your own here)
+    * Working repository (you're on your own here)
     * HipChat account and room setup: https://www.hipchat.com/
     * HipChat token created: https://www.hipchat.com/groups/api
 
