@@ -28,8 +28,8 @@ SUB=""
 # svnlook location
 LOOK="<svnlook LOCATION>"
 
-# Temp file location and name
-HCTMP="<TMP FILE>"
+# Temp file location and name, automatically generate by file path.
+HCTMP="/tmp/`cksum $0 | cut -d " " -f 1`.tmp"
 
 ##############################################################
 ##############################################################

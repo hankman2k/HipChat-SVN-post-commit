@@ -24,7 +24,6 @@ The user MUST edit the script file to add in
     * location of hipchat-cli
     * a user name for display in hipchat
     * location of svnlook command. In RedHat/CentOS /usr/bin/svnlook
-    * location of temp file. 
 
 To test:
     1) Edit script file
